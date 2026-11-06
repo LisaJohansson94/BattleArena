@@ -10,8 +10,8 @@ public abstract class Character implements SpecialAbility {
     private final int blockAmount;
     private int hp;
 
-    public Character(String name, int hp, int minAttack, int maxAttack, int healAmount, int blockAmount) {
-        this.name = name;
+    public Character(int hp, int minAttack, int maxAttack, int healAmount, int blockAmount) {
+        this.name = this.getClass().getSimpleName();
         this.hp = hp;
         this.maxHp = hp;
         this.minAttack = minAttack;
@@ -20,11 +20,13 @@ public abstract class Character implements SpecialAbility {
         this.blockAmount = blockAmount;
     }
 
-    @Override
-    public abstract String useSpecial(Character target);
+    public String getStats() {
+        return String.format("Health: %d, Damage: %d-%d, Heal Amount: %d, Block Amount: %d",
+                hp, minAttack, maxAttack, healAmount, blockAmount);
+    }
 
     public int calculateDamage() {
-        return Math.clamp(0, maxAttack, random.nextInt(minAttack, maxAttack + 1) - blockAmount);
+        return Math.clamp(random.nextInt(minAttack, maxAttack + 1) - blockAmount, 0, maxAttack);
     }
 
     public void takeDamage(int amount) {
@@ -54,11 +56,4 @@ public abstract class Character implements SpecialAbility {
     public String getName() {
         return name;
     }
-
-    public String getClassName() {
-        return this.getClass().getSimpleName();
-    }
 }
-
-
-
