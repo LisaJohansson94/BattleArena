@@ -13,18 +13,17 @@ public abstract class Character implements SpecialAbility {
         this.maxAttack = maxAttack;
     }
 
+    @Override
+    public abstract String useSpecial(Character target);
+
     public int attack() {
         return minAttack + (int) (Math.random() * ((maxAttack - minAttack) + 1));
     }
-
-    @Override
-    public abstract String useSpecial(Character target);
 
     public void takeDamage(int amount) {
         hp -= amount;
         if (hp < 0) hp = 0;
     }
-
 
     public void heal(int amount) {
         hp += amount;
@@ -37,32 +36,23 @@ public abstract class Character implements SpecialAbility {
         return hp > 0;
     }
 
-
     public int getHp() {
-       
-        return hp;
-   
-    }
 
+        return hp;
+
+    }
 
     public int getMaxHp() {
-       
         return maxHp;
-   
     }
 
-
     public String getName() {
-       
         return name;
-   
     }
 
 
     public String getClassName() {
-       
         return this.getClass().getSimpleName();
-   
     }
 }
 
