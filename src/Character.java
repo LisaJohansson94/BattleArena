@@ -1,9 +1,9 @@
 public abstract class Character {
-    private String name;
+    private final String name;
+    private final int maxHp;
+    private final int minAttack;
+    private final int maxAttack;
     private int hp;
-    private int maxHp;
-    private int minAttack;
-    private int maxAttack;
 
     public Character(String name, int hp, int minAttack, int maxAttack) {
         this.name = name;
@@ -15,28 +15,43 @@ public abstract class Character {
 
     public int attack() {
 
-        return minAttack + (int)(Math.random() * ((maxAttack - minAttack) + 1));
+        return minAttack + (int) (Math.random() * ((maxAttack - minAttack) + 1));
     }
+
     public abstract String useSpecial(Character target);
 
     public void takeDamage(int amount) {
         hp -= amount;
         if (hp < 0) hp = 0;
     }
+
     public void heal(int amount) {
         hp += amount;
         if (hp > maxHp) {
             hp = maxHp;
         }
     }
-        public boolean isAlive() {
-            return hp > 0;
+
+    public boolean isAlive() {
+        return hp > 0;
 
     }
-    public int getHp() { return hp; }
-    public int getMaxHp() { return maxHp; }
-    public String getName() { return name; }
-    public String getClassName() { return this.getClass().getSimpleName(); }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getClassName() {
+        return this.getClass().getSimpleName();
+    }
 }
 
 
