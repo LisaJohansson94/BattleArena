@@ -1,8 +1,11 @@
+import java.util.Random;
+
 public abstract class Character implements SpecialAbility {
     private final String name;
     private final int maxHp;
     private final int minAttack;
     private final int maxAttack;
+    Random random = new Random();
     private int hp;
 
     public Character(String name, int hp, int minAttack, int maxAttack) {
@@ -17,7 +20,7 @@ public abstract class Character implements SpecialAbility {
     public abstract String useSpecial(Character target);
 
     public int calculateDamage() {
-        return minAttack + (int) (Math.random() * ((maxAttack - minAttack) + 1));
+        return random.nextInt(minAttack, maxAttack + 1);
     }
 
     public void takeDamage(int amount) {
