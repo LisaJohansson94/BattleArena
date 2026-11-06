@@ -1,4 +1,4 @@
-public abstract class Character {
+public abstract class Character implements SpecialAbility {
     private final String name;
     private final int maxHp;
     private final int minAttack;
@@ -14,16 +14,17 @@ public abstract class Character {
     }
 
     public int attack() {
-
         return minAttack + (int) (Math.random() * ((maxAttack - minAttack) + 1));
     }
 
+    @Override
     public abstract String useSpecial(Character target);
 
     public void takeDamage(int amount) {
         hp -= amount;
         if (hp < 0) hp = 0;
     }
+
 
     public void heal(int amount) {
         hp += amount;
@@ -34,26 +35,36 @@ public abstract class Character {
 
     public boolean isAlive() {
         return hp > 0;
-
     }
+
 
     public int getHp() {
+       
         return hp;
+   
     }
+
 
     public int getMaxHp() {
+       
         return maxHp;
+   
     }
+
 
     public String getName() {
+       
         return name;
+   
     }
+
 
     public String getClassName() {
+       
         return this.getClass().getSimpleName();
+   
     }
 }
-
 
 
 
