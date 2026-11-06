@@ -1,4 +1,5 @@
 public interface SpecialAbility {
-        String useSpecial(Character target);
-    }
+    String getDescription();
 
+    String useSpecial(Character target);
+}
