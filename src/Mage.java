@@ -5,7 +5,6 @@ public class Mage extends Character {
     private static final int HEAL_AMOUNT = 25;
 
     public Mage(String name) {
-
         super(name, MAGE_HP, MAGE_MIN_ATTACK, MAGE_MAX_ATTACK);
     }
 

@@ -5,7 +5,6 @@ public class Warrior extends Character {
     private static final int SPECIAL_DAMAGE = 25;
 
     public Warrior(String name) {
-
         super(name, WARRIOR_HP, WARRIOR_MIN_ATTACK, WARRIOR_MAX_ATTACK);
     }
 
