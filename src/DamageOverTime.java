@@ -1,16 +1,16 @@
 public class DamageOverTime {
     private final int damagePerTick;
-    private int roundsleft;
+    private int roundsLeft;
 
     public DamageOverTime(int damagePerTick, int roundsLeft){
         this.damagePerTick = damagePerTick;
-        this.roundsleft = roundsLeft;
+        this.roundsLeft = roundsLeft;
     }
     public int tick(){
-        roundsleft--;
+        roundsLeft--;
         return damagePerTick;
     }
     public boolean isFinished(){
-        return roundsleft <= 0;
+        return roundsLeft <= 0;
     }
 }
