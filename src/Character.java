@@ -26,7 +26,7 @@ public abstract class Character implements SpecialAbility {
     }
 
     public int calculateDamage() {
-        return Math.clamp(random.nextInt(minAttack, maxAttack + 1) - blockAmount, 0, maxAttack);
+        return (random.nextInt(minAttack, maxAttack + 1));
     }
 
     public void takeDamage(int amount) {
@@ -51,6 +51,10 @@ public abstract class Character implements SpecialAbility {
 
     public int getMaxHp() {
         return maxHp;
+    }
+
+    public int getBlockAmount() {
+        return blockAmount;
     }
 
     public String getName() {
