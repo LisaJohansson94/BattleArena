@@ -30,12 +30,12 @@ public abstract class Character implements SpecialAbility {
     }
 
     public void takeDamage(int amount) {
-        hp -= amount;
+        hp = hp - amount;
         if (hp < 0) hp = 0;
     }
 
     public void heal() {
-        hp += healAmount;
+        hp = hp + healAmount;
         if (hp > maxHp) {
             hp = maxHp;
         }

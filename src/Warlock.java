@@ -37,3 +37,7 @@ public class Warlock extends Character {
         return getName() + " förbannar " + target.getName() + " i " + CURSE_ROUNDS + " rundor ";
     }
 }
+
+
+
+
