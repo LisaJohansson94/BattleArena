@@ -18,7 +18,7 @@ class CharacterTest {
     }
     @Test
     void HealDoesNotExceedMaxHp() {
-        archer.takeDamage(30);
+        archer.takeDamage(5);
         archer.heal();
         assertEquals(archer.getMaxHp(), archer.getHp());
     }
