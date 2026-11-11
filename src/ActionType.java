@@ -1,4 +1,6 @@
 public enum ActionType {
     ATTACK,
-    SPECIAL
+    SPECIAL,
+    BLOCK,
+    HEAL
 }

@@ -3,8 +3,8 @@ import java.util.List;
 
 public class Warlock extends Character {
     private static final int WARLOCK_HP = 100;
-    private static final int WARLOCK_MIN_ATTACK = 6;
-    private static final int WARLOCK_MAX_ATTACK = 12;
+    private static final int WARLOCK_MIN_ATTACK = 8;
+    private static final int WARLOCK_MAX_ATTACK = 14;
     private static final int HEAL_AMOUNT = 10;
     private static final int BLOCK_AMOUNT = 5;
     private static final int CURSE_DAMAGE = 10;
@@ -37,3 +37,7 @@ public class Warlock extends Character {
         return getName() + " förbannar " + target.getName() + " i " + CURSE_ROUNDS + " rundor ";
     }
 }
+
+
+
+
