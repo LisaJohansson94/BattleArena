@@ -1,3 +1,5 @@
+import java.util.ArrayDeque;
+import java.util.Queue;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -22,24 +24,38 @@ public class Battle {
         System.out.println(playerName + " (" + player.getName() + ") mot Datorn (" + computer.getName() + ")");
 
         int round = 1;
+        Queue<PendingAction> pendingActions = new ArrayDeque<>();
+
         while (player.isAlive() && computer.isAlive()) {
             System.out.println("\n--- Runda " + round + " ---");
 
-            applyCurses(player, computer);
-            if (!computer.isAlive()) {
-                break;
-            }
-            performAction(player, computer, choosePlayerAction());
-            if (!computer.isAlive()) {
-                break;
+            for (int i = 0; i < 2; i++) {
+                System.out.printf("Välj din %s handling: %n", i == 0 ? "första" : "andra");
+                var pendingPlayerAction = new PendingAction(player, computer, choosePlayerAction());
+                var pendingComputerAction = new PendingAction(computer, player, randomAction());
+
+                if (random.nextBoolean()) {
+                    pendingActions.add(pendingPlayerAction);
+                    pendingActions.add(pendingComputerAction);
+                } else {
+                    pendingActions.add(pendingComputerAction);
+                    pendingActions.add(pendingPlayerAction);
+                }
             }
 
-            applyCurses(computer, player);
-            if (!player.isAlive()) {
-                break;
-            }
-            performAction(computer, player, randomAction());
+            while (!pendingActions.isEmpty()) {
+                var action = pendingActions.poll();
+                performAction(action.attacker(), action.defender(), action.action());
 
+                if (!player.isAlive() || !computer.isAlive()) {
+                    break;
+                }
+            }
+
+            if (player.isAlive() && computer.isAlive()) {
+                applyCurses(player, computer);
+                applyCurses(computer, player);
+            }
             round++;
         }
 
@@ -106,7 +122,6 @@ public class Battle {
 
     private ActionType choosePlayerAction() {
         while (true) {
-            System.out.println("Välj handling:");
             System.out.println("1. Attackera");
             System.out.println("2. Blocka Skada");
             System.out.println("3. Heala Skada");
