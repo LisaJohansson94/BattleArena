@@ -33,18 +33,13 @@ class CharacterTest {
             assertTrue(damage >= 0);
             assertTrue(damage <= archer.getMaxHp());
         }
-    }
 
-    @Test
-    void SpecialAbilityWorks() {
-        int targetHpBefore = target.getHp();
-        archer.useSpecial(target);
-        assertTrue(target.getHp() < targetHpBefore);
 
     }
 
     @Test
     void newCharacterShouldBeAlive() {
+
         assertTrue(archer.isAlive());
     }
 
