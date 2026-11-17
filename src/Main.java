@@ -1,5 +1,5 @@
-import java.util.Scanner;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,21 +22,30 @@ public class Main {
                     playerName = "Spelare 1";
                 }
 
-                System.out.println("\nVälj din karaktär:");
-                System.out.println("1. Archer");
-                System.out.println("2. Warrior");
-                System.out.println("3. Warlock");
-                System.out.println("4. Hulk");
-                System.out.println("Ange ditt val 1-4: ");
+                Character player = null;
+                while (player == null) {
 
-                String charChoise = scanner.nextLine();
-                Character player = switch (charChoise) {
-                    case "1" -> new Archer();
-                    case "2" -> new Warrior();
-                    case "3" -> new Warlock();
-                    case "4" -> new Hulk();
-                    default -> null;
-                };
+                    System.out.println("\nVälj din karaktär:");
+                    System.out.println("1. Archer");
+                    System.out.println("2. Warrior");
+                    System.out.println("3. Warlock");
+                    System.out.println("4. Hulk");
+                    System.out.println("Ange ditt val 1-4: ");
+
+                    String charChoise = scanner.nextLine().trim();
+                    player = switch (charChoise) {
+                        case "1" -> new Archer();
+                        case "2" -> new Warrior();
+                        case "3" -> new Warlock();
+                        case "4" -> new Hulk();
+                        default -> null;
+                    };
+
+                    if (player == null) {
+                        System.out.println("Ogiltigt val. Välj 1-4.");
+                    }
+                }
+
                 Character computer = switch (random.nextInt(1, 5)) {
                     case 1 -> new Archer();
                     case 2 -> new Warrior();

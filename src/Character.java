@@ -30,6 +30,9 @@ public abstract class Character implements SpecialAbility {
     }
 
     public void takeDamage(int amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("Skada kan ej vara negativt " + amount);
+        }
         hp = hp - amount;
         if (hp < 0) hp = 0;
     }
