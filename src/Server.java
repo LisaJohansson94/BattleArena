@@ -25,11 +25,11 @@ public class Server {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             System.out.println("Server is listening on port: " + PORT);
 
-            Socket clientSocket = serverSocket.accept();
+            while (true) {
+                Socket clientSocket = serverSocket.accept();
 
-            handleClient(clientSocket, matchHistory);
-
-            System.out.println("Server shut down");
+                Thread.startVirtualThread(() -> handleClient(clientSocket, matchHistory));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
