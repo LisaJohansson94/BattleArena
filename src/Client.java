@@ -26,8 +26,7 @@ public class Client {
                     String response;
 
                     while ((response = in.readLine()) != null) {
-                        MatchJson message = mapper.readValue(response, MatchJson.class);
-                        System.out.println("Response from server: " + message.toString());
+                        System.out.println("Response from server: " + response);
                     }
                     System.out.println("Server closed the connection.");
                 } catch (IOException e) {
