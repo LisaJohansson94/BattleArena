@@ -19,6 +19,7 @@ public class Server {
     private static final ObjectMapper jsonMapper = new ObjectMapper();
 
     static void main() {
+        MatchHistory matchHistory = new MatchHistory();
 
 
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
@@ -35,6 +36,7 @@ public class Server {
 
                 while ((clientMessage = in.readLine()) != null) {
                     MatchJson match = jsonMapper.readValue(clientMessage, MatchJson.class);
+                    matchHistory.saveMatch(match.toString());
 
                     System.out.printf("Received from client: %s%n", match.toString());
                     out.println("Server echo: Match saved");
