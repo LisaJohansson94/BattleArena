@@ -25,23 +25,10 @@ public class Server {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             System.out.println("Server is listening on port: " + PORT);
 
-            try (Socket clientSocket = serverSocket.accept();
-                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
+            Socket clientSocket = serverSocket.accept();
 
-                System.out.println("Client connected: " + clientSocket.getInetAddress());
+            handleClient(clientSocket, matchHistory);
 
-
-                String clientMessage;
-
-                while ((clientMessage = in.readLine()) != null) {
-                    MatchJson match = jsonMapper.readValue(clientMessage, MatchJson.class);
-                    matchHistory.saveMatch(match.toString());
-
-                    System.out.printf("Received from client: %s%n", match.toString());
-                    out.println("Server echo: Match saved");
-                }
-            }
             System.out.println("Server shut down");
         } catch (IOException e) {
             e.printStackTrace();
@@ -61,5 +48,28 @@ public class Server {
 
         MatchJson[] matchJsons = jsonMapper.readValue(Files.readAllBytes(SAVE_FILE_PATH), MatchJson[].class);
         return new ArrayList<>(Arrays.asList(matchJsons));
+    }
+
+    private static void handleClient(Socket clientSocket, MatchHistory matchHistory) {
+        try (clientSocket;
+             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
+
+            System.out.println("Client connected: " + clientSocket.getInetAddress());
+
+
+            String clientMessage;
+
+            while ((clientMessage = in.readLine()) != null) {
+                MatchJson match = jsonMapper.readValue(clientMessage, MatchJson.class);
+                matchHistory.saveMatch(match.toString());
+
+                System.out.printf("Received from client: %s%n", match.toString());
+                out.println("Server echo: Match saved");
+            }
+            System.out.println("Client Disconnected: " + clientSocket.getInetAddress());
+        } catch (IOException e) {
+            System.out.println("Problem with Client " + e.getMessage());
+        }
     }
 }
