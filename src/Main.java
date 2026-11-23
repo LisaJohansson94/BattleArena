@@ -4,7 +4,6 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Random random = new Random();
         boolean running = true;
 
         while (running) {
@@ -37,15 +36,8 @@ public class Main {
                     case "4" -> new Hulk();
                     default -> null;
                 };
-                Character computer = switch (random.nextInt(1, 5)) {
-                    case 1 -> new Archer();
-                    case 2 -> new Warrior();
-                    case 3 -> new Warlock();
-                    case 4 -> new Hulk();
-                    default -> null;
-                };
 
-                Battle battle = new Battle(player, computer, playerName, scanner);
+                Battle battle = new Battle(player, playerName, scanner);
                 battle.start();
 
             } else if (choice.equals("2")) {
