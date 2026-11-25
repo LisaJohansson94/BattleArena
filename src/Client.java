@@ -1,4 +1,4 @@
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,7 +14,7 @@ public class Client {
     static void main() {
         String host = "localhost";
         AtomicBoolean connected = new AtomicBoolean(true);
-        ObjectMapper mapper = new ObjectMapper();
+
 
         try (Socket socket = new Socket(host, Server.PORT);
              PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -41,15 +41,15 @@ public class Client {
 
                 if (!connected.get()) break;
 
-                var match = new MatchJson("shin", rng.nextInt(10, 101));
-                var json = mapper.writeValueAsString(match);
-
-                out.println(json);
-                System.out.println("Sent to server: " + input);
 
                 if (input.equalsIgnoreCase("exit")) {
                     break;
                 }
+                String matchResult = "shin: " + rng.nextInt(10, 101);
+                out.println(matchResult);
+                System.out.println("Sent to server: " + matchResult);
+
+
             }
         } catch (UnknownHostException e) {
             System.err.println("Unknown host: " + host);
