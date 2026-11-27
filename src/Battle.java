@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Battle {
+    private static final Random OPPONENT_RANDOM = new Random();
     private final Character player;
     private final Character computer;
     private final String playerName;
@@ -12,11 +13,20 @@ public class Battle {
     private boolean playerBlocking = false;
     private boolean computerBlocking = false;
 
-    public Battle(Character player, Character computer, String playerName, Scanner scanner) {
+    public Battle(Character player, String playerName, Scanner scanner) {
         this.player = player;
-        this.computer = computer;
+        this.computer = createRandomOpponent();
         this.playerName = playerName;
         this.scanner = scanner;
+    }
+
+    private static Character createRandomOpponent() {
+        return switch (OPPONENT_RANDOM.nextInt(4)) {
+            case 0 -> new Archer();
+            case 1 -> new Warrior();
+            case 2 -> new Warlock();
+            default -> new Hulk();
+        };
     }
 
     public void start() {
