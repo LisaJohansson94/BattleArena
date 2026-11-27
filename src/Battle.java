@@ -46,10 +46,6 @@ public class Battle {
             while (!pendingActions.isEmpty()) {
                 var action = pendingActions.poll();
                 performAction(action.attacker(), action.defender(), action.action());
-
-                if (!player.isAlive() || !computer.isAlive()) {
-                    break;
-                }
             }
 
             if (player.isAlive() && computer.isAlive()) {
@@ -60,11 +56,10 @@ public class Battle {
         }
 
         System.out.println("\n=== STRIDEN ÄR SLUT ===");
-        if (player.isAlive()) {
-            System.out.println(playerName + " vinner!");
-        } else {
-            System.out.println("Datorn vinner!");
-        }
+
+        var result = String.format("%s vinner!", player.isAlive() ? playerName : "Datorn");
+        new Client().SendResult(result);
+        System.out.println(result);
     }
 
     public void performAction(Character attacker, Character defender, ActionType action) {
