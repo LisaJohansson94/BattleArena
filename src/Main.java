@@ -1,8 +1,9 @@
+import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
         boolean running = true;
@@ -10,8 +11,9 @@ public class Main {
         while (running) {
             System.out.println("\n=== VÄLKOMMEN ===");
             System.out.println("1. Starta nytt spel");
-            System.out.println("2. Avsluta");
-            System.out.println("Välj alternativ 1-2: ");
+            System.out.println("2. Visa historik");
+            System.out.println("3. Avsluta");
+            System.out.println("Välj alternativ 1-3: ");
 
             String choice = scanner.nextLine().trim();
 
@@ -56,8 +58,9 @@ public class Main {
 
                 Battle battle = new Battle(player, computer, playerName, scanner);
                 battle.start();
-
             } else if (choice.equals("2")) {
+                printMatchHistory();
+            } else if (choice.equals("3")) {
                 System.out.println("Avslutar programmet");
                 running = false;
             } else {
@@ -65,6 +68,18 @@ public class Main {
             }
         }
         scanner.close();
+    }
+
+    private static void printMatchHistory() {
+        try {
+            System.out.println("Match historik:");
+            var history = MatchHistory.readHistory();
+            for (int i = 0; i < history.size(); i++) {
+                System.out.printf("%d. %s%n", i + 1, history.get(i));
+            }
+        } catch (IOException e) {
+            System.out.println("No match history");
+        }
     }
 }
 
