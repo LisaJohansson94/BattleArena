@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -71,14 +70,15 @@ public class Main {
     }
 
     private static void printMatchHistory() {
-        try {
-            System.out.println("Match historik:");
-            var history = MatchHistory.readHistory();
-            for (int i = 0; i < history.size(); i++) {
-                System.out.printf("%d. %s%n", i + 1, history.get(i));
-            }
-        } catch (IOException e) {
-            System.out.println("No match history");
+        var history = MatchHistory.getHistory();
+        if (history.isEmpty()) {
+            System.out.println("Ingen match historik");
+            return;
+        }
+
+        System.out.println("Match historik:");
+        for (int i = 0; i < history.size(); i++) {
+            System.out.printf("%d. %s%n", i + 1, history.get(i));
         }
     }
 }

@@ -11,17 +11,18 @@ public class MatchHistory {
         MatchHistory matchHistory = new MatchHistory();
         matchHistory.saveMatch("Warlock won");
         matchHistory.saveMatch("hulk Won");
-        List<String> historyList = readHistory();
+        List<String> historyList = getHistory();
         for (String rad : historyList) {
             System.out.println(rad);
         }
     }
 
-    public static List<String> readHistory() throws IOException {
-        if (!Files.exists(historyFile)) {
+    public static List<String> getHistory() {
+        try {
+            return Files.readAllLines(historyFile);
+        } catch (IOException e) {
             return List.of();
         }
-        return Files.readAllLines(historyFile);
     }
 
     public void saveMatch(String matchResults) throws IOException {
